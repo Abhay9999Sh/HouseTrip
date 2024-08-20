@@ -101,27 +101,6 @@ app.use("/listings", listingRouter); // Routes for listings
 app.use("/listings/:id/review", reviewRouter); // Routes for reviews
 app.use("/", userRouter); // Routes for users
 
-// Search route
-app.get('/search', async (req, res) => {
-    const query = req.query.query;
-
-    try {
-        // Search for listings that match the query
-        const listings = await Listing.find({
-            $or: [
-                { title: { $regex: query, $options: 'i' } }, // Search by title
-                { location: { $regex: query, $options: 'i' } } // Search by location
-            ]
-        });
-
-        // Render search results
-        res.render('./listings/searchResults', { listings });
-    } catch (err) {
-        console.error(err);
-        req.flash('error', 'An error occurred while searching.');
-        res.redirect('/listings'); // Redirect on error
-    }
-});
 
 // Error handling
 app.all("*", (req, res, next) => {
