@@ -34,10 +34,10 @@ body {
 /* Footer */
 footer {
     background-color: #ebebeb;
-    padding: 2rem 0;
+    padding-top: 1.5rem;
     color: #333;
     border-top: 1px solid #e0e0e0;
-    height: 250px auto;
+    height: 15rem auto;
     margin-top: 0.75rem;
   }
 

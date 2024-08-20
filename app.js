@@ -112,7 +112,9 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("./listings/error.ejs", { message });
 });
 
+
 // Start server
 app.listen(8020, () => {
     console.log(`App is listening on port 8020`);
 });
+

@@ -96,7 +96,8 @@ module.exports.updateListing = async(req, res) => {
     req.flash("success", "Listing Updated!");
     res.redirect("/listings");
   }
-  module.exports.deleteListing = async (req, res) => {
+
+module.exports.deleteListing = async (req, res) => {
     let { id } = req.params;
     
     try {

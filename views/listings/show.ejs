@@ -88,7 +88,7 @@ crossorigin=""></script>
         <img style="height: 20rem;" src="https://th.bing.com/th/id/OIP.XilCf1L6PIuZuBGU2AWoYAHaFE?w=234&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="card-img-top show-img" alt="listing_image">
       <% } %>
       <div class="card-body">
-          <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
+         <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
           <p class="card-text"><b><%= listing.description %></b></p>
           <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
           <p class="card-text"><%= listing.location %> , <%= listing.country %> </p>
