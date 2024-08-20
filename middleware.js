@@ -62,17 +62,23 @@ module.exports.validateListing = (req, res, next) => {
         next(); // Proceed to the next middleware or route handler
     }
 };
-
 // Middleware for review validation
 module.exports.validateReview = (req, res, next) => {
     // Validate review data using schema
     let { error } = reviewSchema.validate(req.body);
+
+    // If validation fails, throw an error
     if (error) {
         let errMsg = error.details.map((el) => el.message).join(",");
         throw new ExpressError(400, errMsg); // Throw custom error if validation fails
-    } else {
-        next(); // Proceed to the next middleware or route handler
+    } 
+
+    // Check if rating is provided; if not, set default to 5
+    if (!req.body.review.rating) {
+        req.body.review.rating = 5;
     }
+
+    next(); // Proceed to the next middleware or route handler
 };
 
 // Middleware to check if the user is the author of a review

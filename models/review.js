@@ -7,6 +7,7 @@ const reviewSchema = new Schema({
         type: Number,
         min: 1,
         max: 5,
+        required: true // Make rating a required field
     },
     createdAt: {
         type: Date,
@@ -14,7 +15,8 @@ const reviewSchema = new Schema({
     },
     author: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true // Ensure author is required
     }
 });
 

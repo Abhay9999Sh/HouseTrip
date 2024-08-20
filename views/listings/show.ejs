@@ -117,7 +117,7 @@ crossorigin=""></script>
                 <label for="rating" class="form-label"></label>
              <fieldset class="starability-slot needs-validation" novalidate required> 
                 
-                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" required/>
                 <label for="first-rate1" title="Terrible">1 star</label>
                 <input type="radio" id="first-rate2" name="review[rating]" value="2" />
                 <label for="first-rate2" title="Not good">2 stars</label>
@@ -128,8 +128,9 @@ crossorigin=""></script>
                 <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                 <label for="first-rate5" title="Very good">5 stars</label>
               </fieldset>
+              <div class="invalid-feedback">Please select a rating.</div>
             </div>
-            <div class="invalid-feedback">Please select a rating.</div>
+           
 
               
             <div class="mb-3 mt-3">
