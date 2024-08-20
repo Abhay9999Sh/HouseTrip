@@ -23,7 +23,30 @@
     }
     nav {
         background-color: rgba(255, 255, 255, 1);
+        position: relative;
     }
+
+    .navbar-heading {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: fixed;
+    top: 0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Hidden by default */
+    z-index: 1; /* Ensure it is above other elements */
+    color: rgb(56, 150, 13);
+  }
+
+
+  @media (max-width: 768px) {
+    .navbar-heading {
+      display: block; /* Hide on larger screens */
+    }
+  }
+  
+
    
     
     
@@ -42,6 +65,7 @@
           >
           <span class="navbar-toggler-icon"></span>
         </button>
+        <h1 class="navbar-heading">HouseTrip</h1>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
            <div class="navbar-nav">
             <a class="nav-link" href="/listings">Explore</a>
@@ -68,5 +92,7 @@
           <% } %>
         </div>
         </div>
+        <!-- Heading Element -->
+    <h1 class="navbar-heading">HouseTrip</h1>
     </div>
   </nav>
