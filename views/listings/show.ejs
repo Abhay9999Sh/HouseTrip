@@ -1,0 +1,212 @@
+<%- layout("/layouts/boilerplate") %>
+
+<style>
+  body {
+    max-width: 100vw;
+    background-color: #f4f4f9; 
+  }
+    #map { height: 300px; width: 600px; }
+
+    .card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+ 
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-img {
+    height: 20rem; 
+    object-fit: cover; 
+}
+
+
+    @media (max-width: 768px) {
+      #map {
+        max-width: 100vw ; /* Full-width map on smaller screens */
+        height: 300px; /* Adjusted height for smaller screens */
+        width: 95vw !important;
+         overflow: auto;
+         scrollbar-width: none;
+         margin-bottom: 10px !important;
+     }
+     body {
+      overflow: auto;
+      scrollbar-width: none;
+    
+    }
+    .show-card {
+            width: 95%; 
+        }
+
+    .showMap {
+       margin: 0 !important;
+     }
+     .card {
+        width: 95% !important;
+     }
+
+  }
+  
+ </style>
+
+ 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+
+
+<div class="row mt-3">
+  <div class="col-8 offset-3 showPage">
+      <br>
+      <h3 style="color: rgb(79, 16, 108)"><b><%= listing.title %></b></h3>
+  </div>
+  <div class="card col-6 offset-3 show-card listing-card">
+      <!-- Bootstrap Carousel -->
+      <% if (listing.image.length > 0) { %>
+        <div id="listingCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <% listing.image.forEach((image, index) => { %>
+              <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                <img src="<%= image.url %>" class="d-block w-100 card-img" alt="listing_image">
+              </div>
+            <% }) %>
+          </div>
+          <a class="carousel-control-prev" href="#listingCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#listingCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
+        </div>
+      <% } else { %>
+        <img style="height: 20rem;" src="https://th.bing.com/th/id/OIP.XilCf1L6PIuZuBGU2AWoYAHaFE?w=234&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="card-img-top show-img" alt="listing_image">
+      <% } %>
+      <div class="card-body">
+          <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
+          <p class="card-text"><b><%= listing.description %></b></p>
+          <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
+          <p class="card-text"><%= listing.location %> , <%= listing.country %> </p>
+          <br><br>
+          <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+              <div class="d-flex justify-content-between position-absolute bottom-0 start-0 end-0 p-2">
+                  <a href="/listings/<%= listing._id %>/edit" class="btn btn-success">Edit</a>
+                  <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+              </div>
+          <% } %>
+      </div>
+  </div>
+
+
+
+
+
+<div class="col-8 offset-3 mb-3 showReview">
+    <% if(currUser) { %>
+        <hr />
+    <h4>Leave a Review</h4>
+    <form method="POST" action="/listings/<%= listing._id %>/review" novalidate class="needs-validation review-rating">
+            <div class="mb-3 ">
+                <label for="rating" class="form-label"></label>
+             <fieldset class="starability-slot needs-validation" novalidate required> 
+                
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Very good">5 stars</label>
+              </fieldset>
+            </div>
+            <div class="invalid-feedback">Please select a rating.</div>
+
+              
+            <div class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comments</label>
+                <textarea
+                  name="review[comment]" 
+                  id="comment" 
+                  cols="30" 
+                  rows="5"
+                  class="form-control"
+                  novalidate 
+                  class="form-range needs-validation"
+                  required
+                ></textarea>
+                <div class="invalid-feedback">Please enter Valid Review</div>
+            </div>
+            <button class="btn btn-outline-dark">Submit</button>
+    </form>
+    <hr />
+    <% } %>
+    <% if(currUser) { %>
+    <div class="reviews-section">
+      <h4>All Reviews</h4>
+      <% if (listing.reviews.length > 0) { %>
+          <div class="row showReview">
+              <% listing.reviews.forEach(function(review) { %>
+                  <div class="col-12 mb-4">
+                      <div class="card review-card">
+                          <div class="card-body">
+                              <h5 class="review-author"><b>@ <%= review.author.username %></b></h5>
+                              <p class="review-date"><%= review.createdAt.toDateString() %></p>
+                              <p class="starability-result card-text" data-rating="<%= review.rating %>">Rated: </p>
+                              <p class="card-text"><%= review.comment %></p>
+                              <form method="POST" action="/listings/<%= listing._id %>/review/<%= review._id %>?_method=DELETE">
+                                  <button class="btn btn-sm btn-danger">Delete</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              <% }) %>
+          </div>
+      <% } else { %>
+          <p>No reviews yet.</p>
+      <% } %>
+  </div>
+  <% } %>
+
+</div>
+<div class="col-8 offset-3 mb-3 showMap" >
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
+</div>
+</div>
+
+<script type="module">
+    import { initializeMap, showCoordinates, getCoordinatesAndDisplay } from '/js/geoUtils.js';
+  
+    // Initialize map
+    const map = initializeMap();
+    console.log('Map initialized:', map);
+  
+    // Extract coordinates and address from the server
+    const address = "<%= listing.location %>, <%= listing.country %>";
+    const lat = parseFloat('<%= listing.geometry.coordinates[1] %>');
+    const lon = parseFloat('<%= listing.geometry.coordinates[0] %>');
+  
+    console.log('Coordinates:', lat, lon); // Check coordinates in the console
+  
+    // Check if coordinates are valid
+    if (Number.isNaN(lat) || Number.isNaN(lon)) {
+      console.log('Coordinates are NaN. Fetching coordinates from address...');
+      getCoordinatesAndDisplay(address, map);
+    } else {
+      console.log('Showing coordinates on the map.');
+      showCoordinates(map, lat, lon, address);
+    }
+  </script>
+
+
+       

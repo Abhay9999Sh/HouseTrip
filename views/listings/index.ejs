@@ -1,0 +1,145 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter {
+    text-align: center;
+    margin-right: 1.5rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .filter p {
+    font-size: 0.8rem;
+  }
+
+  .tax-info {
+    display: none;
+  }
+  
+  .tax-toggle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 2.5rem;
+    padding: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 15px;
+    width: fit-content;
+   
+  }
+
+</style>
+
+<div id="filters">
+  <div class="filter" data-category="trending">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>Trending</p>
+</div>
+<div class="filter" data-category="iconic-cities">
+    <div><i class="fa-solid fa-mountain-city"></i></div>
+    <p>Iconic cities</p>
+</div>
+<div class="filter" data-category="mountains">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p>Mountains</p>
+</div>
+<div class="filter" data-category="castles">
+    <div><i class="fa-brands fa-fort-awesome"></i></div>
+    <p>Castles</p>
+</div>
+<div class="filter" data-category="amazing-pools">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>Amazing Pools</p>
+</div>
+<div class="filter" data-category="camping">
+    <div><i class="fa-solid fa-campground"></i></div>
+    <p>Camping</p>
+</div>
+<div class="filter" data-category="farms">
+    <div><i class="fa-solid fa-cow"></i></div>
+    <p>Farms</p>
+</div>
+<div class="filter" data-category="arctic">
+    <div><i class="fa-solid fa-snowflake"></i></div>
+    <p>Arctic</p>
+</div>
+<div class="filter" data-category="domes">
+    <div><i class="fa-solid fa-igloo"></i></div>
+    <p>Domes</p>
+</div>
+<div class="filter" data-category="boats">
+    <div><i class="fa-solid fa-ship"></i></div>
+    <p>Boats</p>
+</div>
+         <div class="tax-toggle">
+          <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display after taxes</label>
+          </div>
+       </div>
+         
+</div>
+
+    
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListings) { %>
+          <% 
+            let listingPrice = listing.price;
+            let gstAmount = listingPrice * 0.18;
+            let totalAmount = listingPrice + gstAmount;
+            let formattedListingPrice = listingPrice.toLocaleString("en-IN");
+            let formattedTotalAmount = totalAmount.toLocaleString("en-IN");
+           %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card" data-category="<%= listing.category %>">
+               <img src="<%= listing.image[0].url %>" class="card-img-top" 
+               alt="listing_image" style="height:20rem;">
+               <div class="card-body">
+                 <p class="card-text">
+                   <b><%= listing.title %> </b><br/>
+                   &#8377; <%= formattedListingPrice %>/night
+                   <i class="tax-info"> &nbsp;+18% GST  &nbsp; = &nbsp; &#8377;  <%= formattedTotalAmount %></i>
+                 </p>
+               </div>
+             </div>
+             </a>
+             <% } %>
+</div>
+
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(info of taxInfo) {
+      if(info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+
+   // Filter functionality
+   document.querySelectorAll('#filters .filter').forEach(filter => {
+            filter.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+
+                // Redirect to the filtered category page
+                window.location.href = `/listings/category/${category}`;
+            });
+        });
+</script>

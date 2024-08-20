@@ -1,0 +1,91 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    header {
+        margin: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+       
+    }
+    h3 {
+        color: rgb(165, 19, 19);
+    }
+    .tax-info {
+    display: none;
+    }
+  
+    .tax-toggle {
+        border: 1px solid black;
+        height: 2rem;
+        border-radius: 8rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+</style>
+
+<body>
+    <header>
+        <h3>Filtered Listings - <%= filterCategory %></h3>
+    
+    <div class="tax-toggle">
+     <div class="form-check-reverse form-switch">
+       <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+       <label class="form-check-label" for="flexSwitchCheckDefault">Display after taxes</label>
+     </div>
+    </div>
+    
+   
+        
+    </header>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1" id="listing-container">
+        <% if (filteredListings.length > 0) { %>
+            <% for(let listing of filteredListings) { %>
+              <% 
+                let listingPrice = listing.price;
+                let gstAmount = listingPrice * 0.18;
+                let totalAmount = listingPrice + gstAmount;
+                let formattedListingPrice = listingPrice.toLocaleString("en-IN");
+                let formattedTotalAmount = totalAmount.toLocaleString("en-IN");
+               %>
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card" data-category="<%= listing.category %>">
+                   <img src="<%= listing.image[0].url %>" class="card-img-top" 
+                   alt="listing_image" style="height:20rem;">
+                   <div class="card-body">
+                     <p class="card-text">
+                       <b><%= listing.title %> </b><br/>
+                       &#8377; <%= formattedListingPrice %>/night
+                       <i class="tax-info"> &nbsp;+18% GST  &nbsp; = &nbsp; &#8377;  <%= formattedTotalAmount %></i>
+                     </p>
+                   </div>
+                 </div>
+                 </a>
+                 <% } %>
+        <% } else { %>
+            <p>No listings available for this category.</p>
+        <% } %>
+    </div>
+
+   
+</body>
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(info of taxInfo) {
+      if(info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
+

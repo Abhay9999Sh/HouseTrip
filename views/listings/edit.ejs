@@ -1,0 +1,111 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    body {
+    max-width: 100vw;
+    background-color: #f4f4f9; 
+  }
+  
+
+  @media (max-width: 768px) {
+    body {
+      overflow: auto;
+    scrollbar-width: none;
+    }
+    .editPage {
+        margin: 5px !important;
+    }
+ } 
+</style>
+
+<div class="row mt-3">
+    <div class="col-8 offset-2 editPage">
+
+<h3>Edit your Listing</h3>
+    <form 
+      method="POST" 
+      action="/listings/<%= listing._id %>?_method=PUT"  
+      novalidate
+      multiple
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+       <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" required>
+            <div class="valid-feedback">Title looks good!</div>
+
+        </div>
+        <div>
+            <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+        <div class="valid-feedback">Please enter a short description</div>
+        </div>
+
+      
+
+          <div class="mb-3">
+            <label for="original-image" class="form-label">Original Listing Image</label><br/>
+            <% if (listing.image.length > 0) { %>
+                <% listing.image.forEach(img => { %>
+                    <div class="image-container" style="display: inline-block; position: relative; margin-right: 10px;">
+                <img src="<%= img.url %>" alt="Listing Image" style="max-width: 150px; max-height: 150px;">
+            </div>
+                <% }) %>
+            <% } %>
+        </div>
+    
+        <div class="mb-3 mt-2">
+            <label for="image" class="form-label">Upload New Listing Image(s)</label>
+            <div id="imageInputs">
+                <input 
+                  name="listing[image][]" 
+                  type="file" 
+                  class="form-control mb-2"
+                />
+            </div>
+            <button type="button" id="addImage" class="btn btn-outline-secondary">Add Another Image</button>
+        </div>
+        
+        <div class="row">
+        <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+        <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required>
+        <div class="valid-feedback">Price should be valid</div>
+
+        </div>
+        <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+        <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" required>
+        <div class="valid-feedback">Country name should be valid</div>
+
+        </div>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+        <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required>
+        <div class="valid-feedback">Location should be valid</div>
+
+        </div>
+        <button class="btn btn-dark edit-btn mt-3 mb-4">Edit</button>
+        <br>
+    </form>
+    </div>
+</div>
+
+
+<script>
+    let imageCount = 1; // Start with 1 because one input is already present
+    document.getElementById('addImage').addEventListener('click', function() {
+        if(imageCount < 5) { // Limit to 5 image inputs
+            const newInput = document.createElement('input');
+            newInput.type = 'file';
+            newInput.name = 'listing[image][]';
+            newInput.classList.add('form-control', 'mb-2');
+            document.getElementById('imageInputs').appendChild(newInput);
+            imageCount++;
+        } else {
+            alert('You can only upload up to 5 images.');
+        }
+    });
+</script>

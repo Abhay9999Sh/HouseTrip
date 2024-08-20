@@ -1,0 +1,35 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<body>
+    <h3 style="margin: 5px; color: brown;">Search Results</h3>
+    
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% if (listings.length > 0) { %>
+            <% listings.forEach(listing => { %>
+                <% 
+                let listingPrice = listing.price;
+                let gstAmount = listingPrice * 0.18;
+                let totalAmount = listingPrice + gstAmount;
+                let formattedListingPrice = listingPrice.toLocaleString("en-IN");
+                let formattedTotalAmount = totalAmount.toLocaleString("en-IN");
+               %>
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card" data-category="<%= listing.category %>">
+                   <img src="<%= listing.image[0].url %>" class="card-img-top" 
+                   alt="listing_image" style="height:20rem;">
+                   <div class="card-body">
+                     <p class="card-text">
+                       <b><%= listing.title %> </b><br/>
+                       &#8377; <%= formattedListingPrice %>/night
+                       <i class="tax-info"> &nbsp;+18% GST  &nbsp; = &nbsp; &#8377;  <%= formattedTotalAmount %></i>
+                     </p>
+                   </div>
+                 </div>
+                 </a>
+            <% }) %>
+        <% } else { %>
+            <p>No listings found for your query.</p>
+        <% } %>   
+    </div>
+</body>

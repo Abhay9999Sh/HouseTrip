@@ -1,0 +1,359 @@
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Light background for better contrast */
+    
+    max-width: 100vw;
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.container {
+    flex: 1;
+   
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* Footer */
+footer {
+    background-color: #ebebeb;
+    padding: 2rem 0;
+    color: #333;
+    border-top: 1px solid #e0e0e0;
+    height: 250px auto;
+    margin-top: 0.75rem;
+  }
+
+  .f-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .f-info-socials {
+    margin-bottom: 1rem;
+  }
+
+  .f-info-socials i {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .f-info-brand {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .f-info-links a {
+    margin: 0 0.5rem;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .f-info-links a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-sections {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-section {
+    flex: 1;
+    margin: 1rem;
+  }
+
+  .footer-section h5 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+/* Cards */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+    border-radius: 8px; /* Rounded corners for modern look */
+    overflow: hidden; /* Ensure content fits within card */
+}
+
+.card-img-top {
+    border-radius: 0 !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    background-color: #ebebeb;
+}
+
+.card-body {
+    padding: 1rem !important; /* Added padding for better text readability */
+    background-color: #fff; /* Neutral background for better content visibility */
+}
+
+.card-text p {
+    font-weight: 400 !important;
+    color: #333; /* Darker text color for better readability */
+}
+
+.listing-link {
+    text-decoration: none;
+    color: #007bff; /* Accent color for links */
+}
+
+/* Card Effect */
+.card-img-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: rgba(255, 255, 255, 0.7); /* Subtle white overlay on hover */
+}
+
+.add-btn,
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.add-btn:hover,
+.edit-btn:hover {
+    background-color: #dc3545 !important; /* Slightly darker red on hover */
+}
+
+/* Show page */
+.show-img {
+    height: 30vh;
+    border-radius: 8px; /* Rounded corners to match card style */
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between; /* Improved spacing for buttons */
+    margin-top: 1rem; /* Added spacing between card and buttons */
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #fdfdfd; /* Subtle background for card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for better focus */
+}
+
+#map {
+    border: 2px solid green;
+    border-radius: 8px; /* Match the rounded style of other elements */
+    margin-top: 1rem; /* Spacing between content and map */
+}
+
+.showReview {
+    padding-top: 0;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .col-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .show-img {
+        height: 40vh !important; /* Adjust image height for smaller screens */
+        width: 95vw !important;
+        margin: 0 !important;
+    }
+    .card {
+        margin: 5px !important;
+    }
+
+    .btns {
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
+        align-items: flex-start;
+    }
+
+    .btns a,
+    .btns form {
+        margin-bottom: 0.5rem; /* Space between stacked buttons */
+    }
+
+    #map {
+        width: 100%; /* Full-width map on smaller screens */
+        height: 250px; /* Adjusted height for smaller screens */
+    }
+    :root {  
+        /* overflow: auto; */
+        scrollbar-width: none;
+        }
+
+    .showPage {
+        margin: 0 !important;
+    }
+    .showReview {
+        margin: 0 !important;
+    }
+}
+
+.reviews-section {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+  
+   
+  }
+  
+  .reviews-section h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Review Card Styling */
+  .review-card {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 250px; /* Adjust max height for review cards */
+    word-wrap: break-word;
+   
+  }
+  
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .review-author {
+    font-size: 1.1rem;
+    /* font-weight: 700; */
+    /* color: #ff6f00; */
+    margin-bottom: 5px;
+  }
+  
+  .review-date {
+    font-size: 0.9rem;
+    color: #9e4f4f;
+    margin-bottom: 10px;
+  }
+  
+  .starability-result {
+    font-size: 1rem;
+    color: #879f44;
+    margin-bottom: 10px;
+    white-space: nowrap; /* Prevent stars from wrapping to the next line */
+    overflow: hidden; /* Hide any overflow if stars exceed container width */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed content */
+  }
+  
+  .review-date {
+    font-size: 0.9rem;
+    color: #d86868;
+  }
+  
+  /* Delete Button */
+  .btn-danger {
+    background-color: #d9534f;
+    border: none;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c9302c;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+
+    .reviews-section {
+      padding: 15px;
+    }
+  
+    .review-card {
+      padding: 0;
+    }
+  
+    .review-author {
+      font-size: 1rem;
+    }
+  
+    .starability-result {
+      font-size: 0.9rem;
+      display: block;
+    }
+  
+    .review-date {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 300px) {
+    /* Further reduce the size of stars for very small screens */
+    .starability-result {
+        font-size: 0.75rem !important; /* Make stars smaller */
+    }
+
+    .review-card {
+        padding: 0.25rem; /* Further reduce padding for very small screens */
+    }
+}
+
+input {
+    border: 1px solid black !important;
+  }
+  textarea {
+    border: 1px solid black !important;
+ }
+
+ .btn-success {
+    background-color: #619d2d;
+ }
+
+ .btn-success:hover {
+    background-color: #01881e; /* Darker shade of green for Edit button */
+}
+
+.btn-danger:hover {
+    background-color: #d01729; /* Darker shade of red for Delete button */
+}
