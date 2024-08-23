@@ -90,7 +90,17 @@ crossorigin=""></script>
       <div class="card-body">
          <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
           <p class="card-text"><b><%= listing.description %></b></p>
-          <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
+          <% 
+            let listingPrice = listing.price;
+            let gstAmount = listingPrice * 0.18;
+            let totalAmount = listingPrice + gstAmount;
+            let formattedListingPrice = listingPrice.toLocaleString("en-IN");
+            let formattedTotalAmount = totalAmount.toLocaleString("en-IN");
+          %>
+          <p class="card-text">
+              &#8377; <%= formattedListingPrice %>/night
+              <i class="tax-info"> &nbsp;+18% GST  &nbsp; = &nbsp; &#8377;  <%= formattedTotalAmount %></i>
+          </p>
           <p class="card-text"><%= listing.location %> , <%= listing.country %> </p>
           <br><br>
           <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
