@@ -1,0 +1,7 @@
+{
+    "github.copilot.chat.newWorkspace.useContext7": true,
+    "gitlens.views.workspaces.showIncomingActivity": false,
+    "files.autoSaveWorkspaceFilesOnly": true,
+    "gitlens.views.workspaces.branches.showStashes": true,
+    "gitlens.views.workspaces.includeWorkingTree": true
+}

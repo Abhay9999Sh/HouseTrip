@@ -8,7 +8,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "node app.js"
+    "start": "node app.js",
+    "init": "node init/index.js",
+    "create-dummy": "node init/createDummyUser.js"
   },
   "author": "",
   "license": "ISC",
